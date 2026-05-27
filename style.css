@@ -12,14 +12,40 @@ div nav a:hover{
     text-decoration: underline;
     color: yellow;
 }
-div  #dashboard-links{
-    color: blue;
+#dashboard-links{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+#dashboard-links a{
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
     text-decoration: none;
-    margin-right: 10px;
+    border-radius: 6px;
+}
+
+#dashboard-links a:hover{
+    background-color: #0056b3;
+}
+
+li{
+    text-align:center;
+    align-items: center;
 }
 body{
     font-family: Arial, sans-serif;
     margin: 20px;
+}
+ #logout-message{
+    /* content should be center of the page */
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
 }
 form{
     max-width: 400px;
@@ -63,6 +89,16 @@ th, td{
 th{
     background-color: #f2f2f2;
 }
+table th{
+    background-color: blue;
+    color: white;
+}
+tr:nth-child(even){
+    background-color:gray;
+}
+tr:nth-child(odd){
+    background-color: lightgray;
+}
 button{
     background-color: blue;
     color: white;
@@ -79,4 +115,56 @@ form{
     max-width: 400px;
     margin: auto;
     
+}
+h1{
+    text-align: center;
+    text-weight: bold;
+}
+h2{
+    text-align: center;
+    text-weight: bold;
+}
+.page-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 40px);
+    padding: 20px;
+}
+
+.logout-card{
+    max-width: 360px;
+    width: 100%;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.logout-card p{
+    margin: 20px 0;
+    color: #333;
+    font-size: 1rem;
+}
+
+.primary-button{
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.primary-button:hover{
+    background-color: #0056b3;
+}
+
+a{
+    color: blue;
+    text-align: center;
+    align-items: center;
 }
