@@ -16,7 +16,7 @@
     </div>
     <br><br>
     <h2>ADD STUDENT</h2>
-    <form action="view_students.html" method="POST">
+    <form id="student_form" onSubmit="return add(event)">
         <label for="student_name">Student Name:</label>
         <input type="text" id="student_name" name="student_name" required>
         <br><br>
@@ -37,5 +37,27 @@
         <button type="submit">Add Student</button>
 
     </form>
+    <script>
+        //add functionality for unique roll number
+        function add(event) {
+            event.preventDefault();
+            const student={
+                name: document.getElementById("student_name").value,
+                rollNo: document.getElementById("roll_no").value,
+                age: document.getElementById("age").value,
+                cgpa: document.getElementById("cgpa").value
+            };
+            let students=JSON.parse(localStorage.getItem("students")) || [];
+            const existingStudent = students.find(s => s.rollNo === student.rollNo);
+            if(existingStudent){
+                alert("Roll No already exists. Please use a unique Roll No.");
+                return;
+            }
+            students.push(student);
+            localStorage.setItem("students", JSON.stringify(students));
+            alert("Student added successfully!");
+            document.getElementById("student_form").reset();
+        }   
+    </script>
 </body>
 </html>

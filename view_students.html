@@ -7,15 +7,15 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div>
+
     <nav>
         <a href="Dashboard.html">DASHBOARD</a>
         <a href="view_students.html">VIEW STUDENTS</a>
         <a href="logout.html">LOGOUT</a>
     </nav>
-    </div>
-    <br><br>
+
     <h2>View Students</h2>
+
     <table border="1">
         <thead>
             <tr>
@@ -26,70 +26,45 @@
                 <th>Actions</th>
             </tr>
         </thead>
-        <tbody>
-            
-             <tr>
-                <td>John Doe</td>
-                <td>101</td>
-                <td>20</td>
-                <td>8.5</td>
-                <td>
-                    <a href="edit_student.html">Edit</a>
-                    <a href="delete.html">Delete</a>
-                </td>
-             </tr>
-                <tr>
-                    <td>Jane Smith</td>
-                    <td>102</td>
-                    <td>21</td>
-                    <td>9.0</td>
-                    <td>
-                        <a href="edit_student.html">Edit</a>
-                        <a href="delete.html">Delete</a>
-                    </td>
-                </tr>
-                 <tr>
-                    <td>Michael Johnson</td>
-                    <td>103</td>
-                    <td>22</td>
-                    <td>7.8</td>
-                    <td>
-                        <a href="edit_student.html">Edit</a>
-                        <a href="delete.html">Delete</a>
-                    </td>
-                </tr>
-        <tr>
-                    <td>Emily Davis</td>
-                    <td>104</td>
-                    <td>19</td>
-                    <td>8.2</td>
-                    <td>
-                        <a href="edit_student.html">Edit</a>
-                        <a href="delete.html">Delete</a>
-                    </td>
-                </tr>
-        </tr>
-                    <td>David Wilson</td>
-                    <td>105</td>
-                    <td>23</td>
-                    <td>7.5</td>
-                    <td>
-                        <a href="edit_student.html">Edit</a>
-                        <a href="delete.html">Delete</a>
-                    </td>
-                </tr>
-            
-                <tr>
-                    <td>Sarah Brown</td>
-                    <td>106</td>
-                    <td>20</td>
-                    <td>8.9</td>
-                    <td>
-                        <a href="edit_student.html">Edit</a>
-                        <a href="delete.html">Delete</a>
-                    </td>
-                </tr>
+        <tbody id="studentTable">
         </tbody>
     </table>
+
+    <script>
+
+        const students = JSON.parse(localStorage.getItem("students")) || [];
+
+        function populateTable() {
+
+            const tbody = document.getElementById("studentTable");
+            tbody.innerHTML = "";
+
+            students.forEach(student => {
+
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${student.name}</td>
+                    <td>${student.rollNo}</td>
+                    <td>${student.age}</td>
+                    <td>${student.cgpa}</td>
+                    <td>
+                        <a href="edit_student.html?rollNo=${student.rollNo}">
+                            Edit
+                        </a>
+                        <a href="delete_student.html?rollNo=${student.rollNo}">
+                            Delete
+                        </a>
+                    </td>
+                `;
+
+                tbody.appendChild(row);
+            });
+        }
+
+        window.onload = populateTable;
+
+    </script>
+
 </body>
 </html>

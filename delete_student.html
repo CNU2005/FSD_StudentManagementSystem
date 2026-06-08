@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Student</title>
+</head>
+<body>
+
+    <script>
+
+        const params = new URLSearchParams(window.location.search);
+        const rollNo = params.get("rollNo");
+
+        let students = JSON.parse(localStorage.getItem("students")) || [];
+
+        const confirmDelete = confirm(
+            "Are you sure you want to delete this student?"
+        );
+
+        if (confirmDelete) {
+
+            students = students.filter(
+                student => student.rollNo !== rollNo
+            );
+
+            localStorage.setItem(
+                "students",
+                JSON.stringify(students)
+            );
+
+            alert("Student deleted successfully!");
+
+        }
+
+        window.location.href = "view_students.html";
+
+    </script>
+
+</body>
+</html>
