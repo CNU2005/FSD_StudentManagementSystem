@@ -49,6 +49,10 @@
             };
             let students=JSON.parse(localStorage.getItem("students")) || [];
             const existingStudent = students.find(s => s.rollNo === student.rollNo);
+            if(!/23B81A05[A-HJ-NP-Z]{2}$/.test(student.rollNo)){
+                alert("Invalid Roll No. Please follow the specified format.");
+                return;
+            }
             if(existingStudent){
                 alert("Roll No already exists. Please use a unique Roll No.");
                 return;
