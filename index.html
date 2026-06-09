@@ -7,17 +7,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="login.html">Login</a>
-        <a href="register.html">Register</a>
+    <nav style="display: flex; justify-content: center; gap: 20px; padding: 10px; background-color: lightblue;">
+        <a href="index.html" style="text-decoration: none; color: black;">Home</a>
+        <a href="login.html" style="text-decoration: none; color: black;">Login</a>
+        <a href="register.html" style="text-decoration: none; color: black;">Register</a>
     </nav>
-    </div>
-    <h1>Welcome to the Student Management System</h1>
+    <div class="container" style="text-align:centre; width: 50%;height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background-color: pink; padding: 20px; border-radius: 10px; margin: 50px auto;">
+    <h1>Student Management System</h1>
     <p style="text-align: center;">Please login or register to access the dashboard.</p>
-    <a href="login.html" style="display: block; text-align: center;">Login</a> 
-    <br><br>
-    <a href="register.html" style="display: block; text-align: center;">Register</a>
+    <div style="display: flex; gap: 20px;">
+        <a href="login.html" style="display: block; text-align: center; background-color: lightblue; padding: 10px; border-radius: 5px; text-decoration: none; color: black;">Login</a>
+    
+    <a href="register.html" style="display: block; text-align: center; background-color: lightblue; padding: 10px; border-radius: 5px; text-decoration: none; color: black;">Register</a>
+    </div>
+    </div>
 </body>
 </html>
