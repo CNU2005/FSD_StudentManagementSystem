@@ -33,7 +33,7 @@
         <a href="login.html">Already have an account? Login here</a>
     </form>
     <script>
-        function validate(event) {
+        async function validate(event) {
             event.preventDefault();
             var password = document.getElementById("password").value;
             var confirmPassword = document.getElementById("confirm_password").value;
@@ -53,14 +53,23 @@
                     username: document.getElementById("username").value,
                     password: password
                 };
-                alert("Registration successful! You can now log in.");
-                let users = JSON.parse(localStorage.getItem("users")) || [];
-                users.push(userobject);
-                localStorage.setItem("users", JSON.stringify(users));
-                window.location.href = "login.html";
-                return false;
+                const usersdata=await fetch("http://localhost:3000/users");
+                const users=await usersdata.json();
+                if(users.some(s=>s.username===userobject.username))
+                {
+                    alert("User already exist");
+                    return false;
+                }
+                var res=await fetch("http://localhost:3000/users",{method:"post",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify(userobject)
+
+                });
+
             }
             }
+            alert("User Registered successfully");
+            window.location.href="login.html";
             
         }
     </script>

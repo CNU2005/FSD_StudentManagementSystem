@@ -32,10 +32,10 @@
 
     <script>
 
-        const students = JSON.parse(localStorage.getItem("students")) || [];
 
-        function populateTable() {
-
+        async function populateTable() {
+            let studentsdata=await fetch("http://localhost:3000/students");
+            const students=await studentsdata.json();
             const tbody = document.getElementById("studentTable");
             tbody.innerHTML = "";
 

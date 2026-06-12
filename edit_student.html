@@ -10,7 +10,7 @@
 
     <h2>Edit Student</h2>
 
-    <form id="studentForm">
+    <form id="studentForm" onsubmit="update()">
 
         <label>Student Name:</label>
         <input type="text" id="student_name" required>
@@ -19,7 +19,7 @@
         <label>Roll No:</label>
         <input type="text" id="roll_no" required>
         <br><br>
-
+        
         <label>Age:</label>
         <input type="number" id="age" required>
         <br><br>
@@ -33,63 +33,48 @@
     </form>
 
     <script>
-
-        const params = new URLSearchParams(window.location.search);
+        let stdid;
+        window.onload=async function() {
+        const params = new URLSearchParams(window.location.search); 
         const oldRollNo = params.get("rollNo");
+        const response = await fetch("http://localhost:3000/students");
+        const students = await response.json();
 
-        let students = JSON.parse(localStorage.getItem("students")) || [];
-
-        const student = students.find(
+        const std = students.find(
             s => s.rollNo === oldRollNo
         );
 
-        if (student) {
-
-            document.getElementById("student_name").value = student.name;
-            document.getElementById("roll_no").value = student.rollNo;
-            document.getElementById("age").value = student.age;
-            document.getElementById("cgpa").value = student.cgpa;
-
-        } else {
-
-            alert("Student not found!");
-            window.location.href = "view_students.html";
-
+        if (std) {
+            stdid=std.id;
+            document.getElementById("student_name").value=std.name;
+            document.getElementById("roll_no").value=std.rollNo;
+            document.getElementById("age").value=std.age;
+            document.getElementById("cgpa").value=std.cgpa;
         }
-
-        document
-            .getElementById("studentForm")
-            .addEventListener("submit", function(event) {
-
-            event.preventDefault();
-
-            const updatedStudent = {
-
-                name: document.getElementById("student_name").value,
-                rollNo: document.getElementById("roll_no").value,
-                age: document.getElementById("age").value,
-                cgpa: document.getElementById("cgpa").value
-
+        else{
+            alert("Student Not Found");
+        }
+    }
+    async function update(){
+        const updatedStudent = {
+            name: document.getElementById("student_name").value,
+            rollNo: document.getElementById("roll_no").value,
+            age: document.getElementById("age").value,
+            cgpa: document.getElementById("cgpa").value
             };
 
-            const index = students.findIndex(
-                s => s.rollNo === oldRollNo
-            );
+            await fetch(`http://localhost:3000/students/${stdid}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(updatedStudent)
+            });
 
-            if (index !== -1) {
-
-                students[index] = updatedStudent;
-
-                localStorage.setItem(
-                    "students",
-                    JSON.stringify(students)
-                );
-
-                alert("Student updated successfully!");
-
-                window.location.href = "view_students.html";
-            }
-        });
+            alert("Student updated successfully!");
+            window.location.href = "view_students.html";
+        }
+    
 
     </script>
 

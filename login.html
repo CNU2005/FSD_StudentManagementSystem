@@ -26,11 +26,12 @@
         <a href="register.html">Don't have an account? Register here</a>
     </form>
     <script>
-        function validate(event){
+        async function validate(event){
             event.preventDefault();
             const username=document.getElementById("username").value;
             const password=document.getElementById("password").value;
-            const users = JSON.parse(localStorage.getItem("users")) || [];
+            const usersdata=await fetch("http://localhost:3000/users");
+            const users=await usersdata.json();
             const storedUser = users.find(user => user.username === username && user.password === password);
             if(storedUser){
                 alert("Login successful! Welcome, " + username + "!");

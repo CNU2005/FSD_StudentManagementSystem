@@ -7,35 +7,42 @@
 </head>
 <body>
 
-    <script>
+<script>
+window.onload = async function () {
+
 
         const params = new URLSearchParams(window.location.search);
         const rollNo = params.get("rollNo");
+        const response = await fetch("http://localhost:3000/students");
+        const students = await response.json();
+        const student = students.find(
+            student => student.rollNo === rollNo
+        );
 
-        let students = JSON.parse(localStorage.getItem("students")) || [];
-
+        if (!student) {
+            alert("Student not found!");
+            window.location.href = "view_students.html";
+            return;
+        }
         const confirmDelete = confirm(
-            "Are you sure you want to delete this student?"
+            `Are you sure you want to delete ${student.name}?`
         );
 
         if (confirmDelete) {
-
-            students = students.filter(
-                student => student.rollNo !== rollNo
-            );
-
-            localStorage.setItem(
-                "students",
-                JSON.stringify(students)
+            await fetch(
+                `http://localhost:3000/students/${student.id}`,
+                {
+                    method: "DELETE"
+                }
             );
 
             alert("Student deleted successfully!");
-
         }
 
         window.location.href = "view_students.html";
 
-    </script>
+    } 
+</script>
 
 </body>
 </html>

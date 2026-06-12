@@ -39,7 +39,7 @@
     </form>
     <script>
         //add functionality for unique roll number
-        function add(event) {
+        async function add(event) {
             event.preventDefault();
             const student={
                 name: document.getElementById("student_name").value,
@@ -47,7 +47,9 @@
                 age: document.getElementById("age").value,
                 cgpa: document.getElementById("cgpa").value
             };
-            let students=JSON.parse(localStorage.getItem("students")) || [];
+
+            let studentsdata=await fetch("http://localhost:3000/students");
+            const students=await studentsdata.json();
             const existingStudent = students.find(s => s.rollNo === student.rollNo);
             if(!/23B81A05[A-HJ-NP-Z]{2}$/.test(student.rollNo)){
                 alert("Invalid Roll No. Please follow the specified format.");
@@ -57,8 +59,11 @@
                 alert("Roll No already exists. Please use a unique Roll No.");
                 return;
             }
-            students.push(student);
-            localStorage.setItem("students", JSON.stringify(students));
+            let res=await fetch("http://localhost:3000/students",{
+                method:"post",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify(student)
+            });
             alert("Student added successfully!");
             document.getElementById("student_form").reset();
         }   
