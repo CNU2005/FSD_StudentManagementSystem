@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Student</title>
+</head>
+<body>
+
+<script>
+window.onload = async function () {
+
+    const params =
+        new URLSearchParams(window.location.search);
+
+    const rollno =
+        params.get("rollno");
+
+    const response =
+        await fetch(
+            "http://localhost:8080/std_students"
+        );
+
+    const students =
+        await response.json();
+
+    const student =
+        students.find(
+            s => s.rollno === rollno
+        );
+
+    if (!student) {
+        alert("Student Not Found");
+        window.location.href =
+            "view_students.html";
+        return;
+    }
+
+    const confirmDelete =
+        confirm(
+            `Delete ${student.name}?`
+        );
+
+    if (confirmDelete) {
+
+        await fetch(
+            `http://localhost:8080/std_students/${student.id}`,
+            {
+                method: "DELETE"
+            }
+        );
+
+        alert("Student Deleted");
+    }
+
+    window.location.href =
+        "view_students.html";
+};
+
+</script>
+</body>
+</html>

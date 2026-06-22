@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Students</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <a href="Dashboard.html">DASHBOARD</a>
+        <a href="view_students.html">VIEW STUDENTS</a>
+        <a href="logout.html">LOGOUT</a>
+    </nav>
+
+    <h2>View Students</h2>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Roll No</th>
+                <th>Age</th>
+                <th>CGPA</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="studentTable">
+        </tbody>
+    </table>
+
+    <script>
+        async function populateTable() {
+
+    let studentsdata =
+        await fetch("http://localhost:8080/std_students");
+
+    const students =
+        await studentsdata.json();
+
+    const tbody =
+        document.getElementById("studentTable");
+
+    tbody.innerHTML = "";
+
+    students.forEach(student => {
+
+        const row =
+            document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${student.name}</td>
+            <td>${student.rollno}</td>
+            <td>${student.age}</td>
+            <td>${student.cgpa}</td>
+            <td>
+                <a href="edit_student.html?rollno=${student.rollno}">
+                    Edit
+                </a>
+
+                <a href="delete_student.html?rollno=${student.rollno}">
+                    Delete
+                </a>
+            </td>
+        `;
+
+        tbody.appendChild(row);
+    });
+}
+
+window.onload = populateTable;
+
+    </script>
+</body>
+</html>

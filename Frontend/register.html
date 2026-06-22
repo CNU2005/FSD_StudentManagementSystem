@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+        <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div>
+     <nav>
+        <a href="index.html">Home</a>
+        <a href="login.html">Login</a>
+       
+    </nav>
+    </div>
+    <h2>Registration Form</h2>
+    <br><br>
+    <form onSubmit="return validate(event)">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <br><br>
+        <label for="confirm_password">Confirm Password:</label>
+        <input type="password" id="confirm_password" name="confirm_password" required>
+        <br><br>
+
+        <button type="submit">Register</button>
+        <br><br>
+        <a href="login.html">Already have an account? Login here</a>
+    </form>
+    <script>
+async function validate(event) {
+    event.preventDefault();
+
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirm_password").value;
+
+    if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return false;
+    }
+
+    if (password.match(/^[A-Z][a-zA-Z0-9@*_]{7,}$/) === null) {
+        alert("Password must be at least 8 characters long and start with an uppercase letter.");
+        return false;
+    }
+
+    const userobject = {
+        username: document.getElementById("username").value,
+        password: password
+    };
+
+    try {
+        // Get all users
+        const usersdata = await fetch("http://localhost:8080/std_users");
+        const users = await usersdata.json();
+
+        // Check if user already exists
+        if (users.some(u => u.username === userobject.username)) {
+            alert("User already exists.");
+            return false;
+        }
+
+        // Save new user
+        const res = await fetch("http://localhost:8080/std_users", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userobject)
+        });
+
+        if (res.ok) {
+            alert("User Registered Successfully!");
+            window.location.href = "login.html";
+        } else {
+            alert("Registration Failed!");
+        }
+
+    } catch (error) {
+        console.log(error);
+        alert("Server Error!");
+    }
+}
+</script>
+
+</body>
+</html>
