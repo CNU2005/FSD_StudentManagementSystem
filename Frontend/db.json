@@ -1,1 +1,35 @@
-{"users":[{"username":"CNUVAS","password":"Cnu12345","id":1},{"username":"Mani","password":"Mani1234","id":2},{"username":"jan","password":"jan1234","id":3}],"students":[{"name":"Manogna","rollNo":"23B81A05BY","age":"21","cgpa":"9.5","id":1},{"name":"Jathin","rollNo":"23B81A05BZ","age":"21","cgpa":"9.5","id":2}]}
+{
+    "users": [
+        {
+            "username": "CNUVAS",
+            "password": "Cnu12345",
+            "id": 1
+        },
+        {
+            "username": "Mani",
+            "password": "Mani1234",
+            "id": 2
+        },
+        {
+            "username": "jan",
+            "password": "jan1234",
+            "id": 3
+        }
+    ],
+    "students": [
+        {
+            "name": "Manogna",
+            "rollNo": "23B81A05BY",
+            "age": "21",
+            "cgpa": "9.5",
+            "id": 1
+        },
+        {
+            "name": "Jathin",
+            "rollNo": "23B81A05BZ",
+            "age": "21",
+            "cgpa": "9.5",
+            "id": 2
+        }
+    ]
+}
